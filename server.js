@@ -11,6 +11,7 @@ const handle_exiting = require('./controller/Handle_exiting');
 
 let queue = [];
 let rooms = {};
+let names = {};
 
 app.get('/',(req,res) => {
     res.send("Hello everyone");
@@ -18,10 +19,10 @@ app.get('/',(req,res) => {
 
 io.on('connection', function (socket) {
   console.log('User with id ' + socket.id + ' connected');
-
+  
   socket.on('disconnect', handle_exiting(socket,rooms));
 
-  socket.on("find partner", handle_match(queue,rooms,socket));
+  socket.on("find partner", (data) => handle_match(queue,rooms,names,socket,data));
 
   socket.on("send message", (data) => {handle_sending(socket,rooms,data)});
 });

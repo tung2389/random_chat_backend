@@ -20,7 +20,7 @@ app.get('/',(req,res) => {
 io.on('connection', function (socket) {
   console.log('User with id ' + socket.id + ' connected');
   
-  socket.on('disconnect', handle_exiting(socket,rooms));
+  socket.on('disconnect', () => handle_exiting(socket,rooms));
 
   socket.on("find partner", (data) => handle_match(queue,rooms,names,socket,data));
 

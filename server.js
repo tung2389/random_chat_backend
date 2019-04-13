@@ -25,4 +25,6 @@ io.on('connection', function (socket) {
   socket.on("find partner", (data) => handle_match(queue,rooms,names,socket,data));
 
   socket.on("send message", (data) => {handle_sending(socket,rooms,data)});
+
+  socket.on('Partner disconnected', () => handle_exiting(socket,rooms));
 });
